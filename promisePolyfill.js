@@ -2,7 +2,6 @@ function promisePolyfill(exec) {
   let isFulfilled = false,
     isRejected = false,
     isCalled = false,
-    called = false,
     value,
     onResolve,
     onReject;
@@ -30,7 +29,7 @@ function promisePolyfill(exec) {
   this.then = (cb) => {
     onResolve = cb;
     if (isFulfilled && !isCalled) {
-      called = true;
+      isCalled = true;
       onResolve(value);
     }
     return this;
@@ -39,7 +38,7 @@ function promisePolyfill(exec) {
   this.catch = (cb) => {
     onReject = cb;
     if (isRejected && !isCalled) {
-      called = true;
+      isCalled = true;
       onReject(value);
     }
     return this;
