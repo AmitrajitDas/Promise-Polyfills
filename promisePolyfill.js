@@ -61,3 +61,15 @@ const samplePromise = new promisePolyfill((resolve, reject) => {
 samplePromise
   .then((res) => console.log(res))
   .catch((err) => console.error(err));
+
+promisePolyfill.resolve = (val) => {
+  return new promisePolyfill((resolve, reject) => {
+    resolve(val);
+  });
+};
+
+promisePolyfill.reject = (val) => {
+  return new promisePolyfill((resolve, reject) => {
+    reject(val);
+  });
+};
